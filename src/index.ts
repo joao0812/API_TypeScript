@@ -1,22 +1,12 @@
-import express from "express";
-import http from "http";
-import bodyParse from "body-parser";
-import cookieParser from "cookie-parser";
-import compression from "compression";
-import cors from "cors";
+import app from "./app";
 
-console.log("ola cara");
+const PORT = process.env.PORT || 8080;
 
-const app = express();
+const server = app.listen(PORT, () => {
+  console.log(`Listenning on port ${PORT}`);
+});
 
-app.use(
-  cors({
-    credentials: true,
-  })
-);
-
-app.use(compression());
-app.use(cookieParser());
-app.use(bodyParse.json());
-
-const server = http.createServer(app);
+process.on("SIGINT", () => {
+  server.close();
+  console.log("App finished");
+});
