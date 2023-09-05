@@ -1,0 +1,12 @@
+DESENVOLVIMENTO
+
+# npm i -D ...
+    nodemon -> Auxilia na execução do projeto em modo de desenvolvimento 
+    typescript -> Linguagem TypeScript 
+    ts-node -> Transpila o código .ts em .js e já compila o mesmo
+    @types/express -> Auxilia da tipagem do express com TypeScript
+
+# npm install ...
+    express -> framework para manipulação de requisições HTTP
+    cors -> Permite que sua API seja acessada por aplicações externas, abre todas as portas de acesso a sua API, necessário pós, por padrão, o express fecha todas essas portas de acesso
+    morgan -> Auxilia a dar log das requisições HTTP do projeto
