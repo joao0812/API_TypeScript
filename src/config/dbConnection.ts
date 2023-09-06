@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import { config } from "dotenv";
 config() 
 
-const mongoDB_connection = process.env.mongoDB || ""; 
+const mongoDB_connection = process.env.MONGODB_ATLAS || ""; 
 
 mongoose.connect(mongoDB_connection);
 
