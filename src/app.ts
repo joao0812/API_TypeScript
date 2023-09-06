@@ -1,5 +1,4 @@
 import express from "express";
-import { config } from "dotenv";
 import http from "http";
 import bodyParse from "body-parser";
 import cookieParser from "cookie-parser";
@@ -8,11 +7,11 @@ import cors from "cors";
 import logger from "morgan";
 
 import logBookDB from "./config/dbConnection";
+import { GetUsersController } from "./controllers/get-Users/getUsers";
+import { MongoGetUserRespository, MysqlGetUserRespository } from "./repositories/get-users/mongo-get-users";
 
 logBookDB.on('error', (err) => console.log(`ERROR!! -> ${err}`))
 logBookDB.once('open', ()=> console.log('Database connected'))
-
-config();
 
 const app = express();
 
@@ -30,9 +29,26 @@ app.use(cookieParser());
 app.use(bodyParse.json());
 // O módulo morgan (às vezes referido como logger) é usado para registrar informações de solicitação HTTP no console do servidor. É útil para depuração e monitoramento de solicitações HTTP.
 app.use(logger("dev"));
-app.get('/', (req, res)=>{
-    res.send('HELLO')
-    console.log('Acessado')
+
+app.get('/users', async (req, res)=>{
+  const mongoGetUserRepository = new MongoGetUserRespository()
+
+  const getUserController = new GetUsersController(mongoGetUserRepository)
+
+  const {body, statusCode} = await getUserController.handle()
+
+  res.send(body).status(statusCode)
+
+})
+app.get('/user', async (req, res)=>{
+  const mysqlGetUserRepository = new MysqlGetUserRespository()
+
+  const getUserController = new GetUsersController(mysqlGetUserRepository)
+
+  const {body, statusCode} = await getUserController.handle()
+
+  res.send(body).status(statusCode)
+
 })
 
 export default app;
