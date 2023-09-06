@@ -9,6 +9,7 @@ export class MongoGetUserRespository implements IGetUsersRepository {
     const area = logBookDB.collection("areas").find()
     return [
       {
+        id: '12',
         firstName: "João",
         lastName: "Almeida",
         email: "email@email",
