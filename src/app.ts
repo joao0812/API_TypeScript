@@ -8,7 +8,7 @@ import logger from "morgan";
 
 import logBookDB from "./config/dbConnection";
 import { GetUsersController } from "./controllers/get-Users/getUsers";
-import { MongoGetUserRespository, MysqlGetUserRespository } from "./repositories/get-users/mongo-get-users";
+import { MongoGetUserRespository, /* MysqlGetUserRespository */ } from "./repositories/get-users/mongo-get-users";
 
 logBookDB.on('error', (err) => console.log(`ERROR!! -> ${err}`))
 logBookDB.once('open', ()=> console.log('Database connected'))
@@ -40,7 +40,7 @@ app.get('/users', async (req, res)=>{
   res.send(body).status(statusCode)
 
 })
-app.get('/user', async (req, res)=>{
+/* app.get('/user', async (req, res)=>{
   const mysqlGetUserRepository = new MysqlGetUserRespository()
 
   const getUserController = new GetUsersController(mysqlGetUserRepository)
@@ -50,5 +50,5 @@ app.get('/user', async (req, res)=>{
   res.send(body).status(statusCode)
 
 })
-
+ */
 export default app;
