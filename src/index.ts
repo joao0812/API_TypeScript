@@ -1,6 +1,6 @@
 import app from "./app";
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
 
 const server = app.listen(PORT, () => {
   console.log(`Listenning on port ${PORT}`);
@@ -8,5 +8,4 @@ const server = app.listen(PORT, () => {
 
 process.on("SIGINT", () => {
   server.close();
-  console.log("App finished");
 });

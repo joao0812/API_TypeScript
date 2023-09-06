@@ -7,6 +7,11 @@ import compression from "compression";
 import cors from "cors";
 import logger from "morgan";
 
+import logBookDB from "./config/dbConnection";
+
+logBookDB.on('error', (err) => console.log(`ERROR!! -> ${err}`))
+logBookDB.once('open', ()=> console.log('Database connected'))
+
 config();
 
 const app = express();
@@ -27,6 +32,7 @@ app.use(bodyParse.json());
 app.use(logger("dev"));
 app.get('/', (req, res)=>{
     res.send('HELLO')
+    console.log('Acessado')
 })
 
 export default app;
