@@ -1,12 +1,12 @@
 import { IGetUsersController, IGetUsersRepository } from "./protocols";
 
 export class GetUsersController implements IGetUsersController {
-  constructor(private readonly getUserRepository: IGetUsersRepository) {}
+  constructor(private readonly getUserRepository: IGetUsersRepository, private readonly id:string) {}
 
   async handle() {
     try {
       // Adiciona a chamada para o Repository
-      const users = await this.getUserRepository.getArea();
+      const users = await this.getUserRepository.getOneArea(this.id);
       
       return {
         statusCode: 200, 

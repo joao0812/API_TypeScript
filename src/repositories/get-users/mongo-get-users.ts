@@ -1,6 +1,8 @@
 import { IGetUsersRepository } from "../../controllers/get-Users/protocols";
 import { User } from "../../models/user";
 
+import mongoose from "mongoose";
+
 import logBookDB from "../../config/dbConnection";
 import { Area } from "../../models/area";
 
@@ -38,7 +40,25 @@ export class MongoGetUserRespository implements IGetUsersRepository {
       .collection<Omit<Area, "id">>("areas")
       .find()
       .toArray();
-    return areas.map(({ _id, ...rest }) => ({ ...rest, id: _id.toHexString() }));
+    return areas.map(({ _id, ...rest }) => ({
+      ...rest,
+      id: _id.toHexString(),
+    }));
+  }
+
+  async getOneArea(id: string): Promise<Area> {
+    const area = await logBookDB
+      .collection<Omit<Area, "id">>("areas")
+      .findOne({ _id: new mongoose.Types.ObjectId(id) });
+    
+      if (!area) {
+      throw new Error("Area not Created");
+    }
+
+    const { _id, ...rest } = area;
+    console.log(area);
+
+    return {id: _id.toHexString(), ...rest}
   }
 }
 

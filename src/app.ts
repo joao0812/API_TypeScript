@@ -33,7 +33,7 @@ app.use(logger("dev"));
 app.get('/users', async (req, res)=>{
   const mongoGetUserRepository = new MongoGetUserRespository()
 
-  const getUserController = new GetUsersController(mongoGetUserRepository)
+  const getUserController = new GetUsersController(mongoGetUserRepository, '64e4eb8dc1230363d140ebbf')
 
   const {body, statusCode} = await getUserController.handle()
 
